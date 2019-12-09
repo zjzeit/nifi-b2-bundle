@@ -80,6 +80,7 @@ public class PutB2File extends AbstractProcessor {
             .description("A Backblaze B2 application secret key associated with the keyID.")
             //.expressionLanguageSupported(ExpressionLanguageScope.FLOWFILE_ATTRIBUTES)
             .required(true)
+            .sensitive(true)
             .addValidator(StandardValidators.createAttributeExpressionLanguageValidator(AttributeExpression.ResultType.STRING))
             .build();
     
@@ -209,19 +210,7 @@ public class PutB2File extends AbstractProcessor {
         
         B2UploadFileRequest request = B2UploadFileRequest
                 .builder(bucketID, absolutePath, B2ContentTypes.B2_AUTO, source)
-                .setCustomField("color", "red")
-                .setCustomField("1", "a")
-                .setCustomField("2", "b")
-                .setCustomField("3", "c")
-                .setCustomField("4", "d")
-                .setCustomField("5", "e")
-                .setCustomField("6", "f")
-                .setCustomField("7", "g")
-                .setCustomField("8", "h")
-                .setCustomField("9", "i")
-                .setCustomField("10", "j")
-                .setCustomField("11", "k")
-                .setCustomField("12", "l")
+                //.setCustomField("color", "red")
                 .build();
         try {
         	// Attempt to upload file. Max filesize: 5 GB.
@@ -234,10 +223,6 @@ public class PutB2File extends AbstractProcessor {
             
         session.transfer(flowFile, REL_SUCCESS);
         
-        
-        
-		
-		
     }
     
     private byte[] getByteArray(InputStream input) {
